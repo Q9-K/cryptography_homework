@@ -1,188 +1,52 @@
 % !Mode:: "TeX:UTF-8"
-\chapter{环境配置}
+\chapter{RSA前置数学知识}
 
-\section{C\TeX{}套装 [Windows Only]}
+\section{互质}
 
-C\TeX{}套装是Windows下为中文优化的\LaTeX{}系统套件，主要基于MiKTeX系统，
-集成了编辑器WinEdt和其他相关软件。整个系统封装在一个安装程序中，
-安装方法与常规软件相同，无需任何配置，适合大部分Windows用户使用。
+如果两个正整数，除了 1 以外没有其他的公因数，则他们互质。比如，14 和 15 互质。注意，两个数构成互质关系，他们不一定需要是质数，比如 7 和 9。
 
-\begin{description}
-    \item[下载地址] \hfill
-    \begin{description}
-        \item[官方页面]
-            \url{http://www.ctex.org/CTeXDownload}
-        \item[清华镜像]
-            \url{https://mirrors.tuna.tsinghua.edu.cn/ctex/unstable/}
-        \item[中科大镜像]
-            \url{http://mirrors.ustc.edu.cn/ctex/unstable/}
-    \end{description}
-    \item[安装方法] \hfill
-        \begin{itemize}
-            \item[] 与常规软件的安装方法类似
-            \item[] 一直下一步稍加一些自定义（如安装路径）即可
-            \item[] {\bf 注意：} 安装程序在某些情况下可能覆盖PATH环境变量，请在安装前注意备份PATH环境变量
-        \end{itemize}
-\end{description}
+关于互质有以下结论:
+\begin{enumerate}
+    \item 任意两个质数构成互质关系，比如13和61。
+    \item 一个数是质数，另一个数只要不是前者的倍数，两者就构成互质关系，比如3和10。
+    \item 如果两个数之中，较大的那个数是质数，则两者构成互质关系，比如97和57。
+    \item 1和任意一个自然数是都是互质关系，比如1和99。
+    \item p是大于1的整数，则p和p-1构成互质关系，比如57和56。
+    \item p是大于1的奇数，则p和p-2构成互质关系，比如17和15。
+\end{enumerate}
 
-\section{\TeX{}Live [ Windows \& Linux ]}
+\section{欧拉函数}
 
-\TeX{}是自由软件，有很多发行版本，就像Linux的Ubuntu、Fedora等等。
-每个发行版本都是一套工具集合，包括plain\TeX{}，\LaTeX{}，pdf\TeX{}，dvips等。
-其中比较流行的是\TeX{}Live，也包含在CTAN的开源镜像中。
+考虑下面问题:
 
-推荐通过下载ISO镜像文件的方式安装：
-\begin{description}
-    \item[官方说明]
-        \url{http://www.tug.org/texlive/acquire-iso.html}
-    \item[下载地址] 官方地址会自动跳转寻找"最近"镜像，还有几个较快的教育网镜像
-    \begin{description}
-        \item[官方地址]
-            \url{http://mirror.ctan.org/systems/texlive/Images/texlive2016.iso}
-        \item[清华镜像]
-            \url{http://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/}
-        \item[中科大镜像]
-            \url{https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/}
-    \end{description}
-    \item[安装方法] \hfill
-    \begin{enumerate}
-        \item 通过虚拟光驱挂载镜像也可以直接打开或解压缩不过会比较慢
-        \item 双击运行光盘镜像或者运行脚本
-        \item[] Windows 用户可以直接双击运行\textsl{install-tl.bat}
-        \item[] Linux 用户可以在终端下执行命令\textsl{./install-tl}
-        \item 按照提示下一步即可，安装大致耗时10$\sim$20分钟，受机器配置影响。
-    \end{enumerate}
-\end{description}
+任意给定正整数n，请问在小于等于n的正整数之中，有多少个与n构成互质关系？（比如，在1到8之中，有多少个数与8构成互质关系？）
 
-当然官方也提供了通过网络安装的方式，虽然通过可以通过镜像选择达到比较快的速度，
-但是这里简便期间不再赘述，有兴趣的同学可以参考官方说明
-\url{http://www.tug.org/texlive/acquire-netinstall.html}。
+用$\varphi (n)$来表示上面问题的答案，有下面结论:
 
-\section{Mac\TeX{} [ Mac ]}
+\begin{enumerate}
+    \item 如果n=1，则 $\varphi(n) = 1$ 。因为1与任何数（包括自身）都构成互质关系。
+    \item 如果n是质数，则 $\varphi(n) = n-1 $。因为质数与小于它的所有数都构成互质关系。
+    \item 如果n是某质数p的某一个次方，即$n=p^k$，则 $\varphi(n) = p^k - p^{k-1}$。
+    \item 如果n可以分解为两个互质的整数之积，即 $ n=a\times b $，则$\varphi(n) = \varphi(a) \times \varphi(b)$。
+    \item 因为任意一个大于1的正整数，都可以写成有限个质数的积，即$ n = p_1^{k_1} \times p_2^{k_2} \times \cdots p_r^{k_r} $ 。所以，对于任意一个正整数n，都有$\varphi(n) = n \times (1-\frac{1}{p_1}) \times (1-\frac{1}{p_2}) \times \cdots \times (1-\frac{1}{p_k})$，其中$p_1,p_2,\cdots,p_k$是n的质因数。由结论3和结论4，经过推导可得$$ \varphi(n) = n(1-\frac{1}{p_1})(1-\frac{1}{p_2}\cdots(1-\frac{1}{p_r}))$$
 
-Mac\TeX{}是基于\TeX{}Live为Mac系统设计的套件。
+          这就是欧拉函数的通用计算公式。
+\end{enumerate}
 
-\begin{description}
-    \item[官方网站]
-        \url{http://tug.org/mactex/}
-    \item[下载地址] 官方地址会自动跳转寻找"最近"镜像，还有几个较快的教育网镜像
-    \begin{description}
-        \item[官方地址]
-            \url{http://mirror.ctan.org/systems/mac/mactex/MacTeX.pkg}
-        \item[清华镜像]
-            \url{http://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/mac/mactex/}
-        \item[中科大镜像]
-            \url{https://mirrors.ustc.edu.cn/CTAN/systems/mac/mactex/}
-    \end{description}
-    \item[安装方法] 同一般软件安装，下一步即可
-\end{description}
+\section{欧拉定理}
 
-\section{兼容性}
+欧拉定理是一个非常重要的定理，它是RSA算法的理论基础。欧拉定理的内容如下：
 
-本模板依赖v2.0及以上版本的ctex包，\TeX{}Live 2015及以上版本、C\TeX{}2.9.3 可以正常使用。
-对于低版本的\LaTeX{}发行版，需要使用包管理器升级ctex宏包。
+如果a和n是互质的，那么$a^{\varphi(n)} \equiv 1 \pmod{n}$。
 
-\section{安装字体 [ Linux ]}
+欧拉定理存在一个特殊情况：如果 p 是质数，而 a 不是 p 的倍数，此时 a 和 p 必然互质。因为$ \varphi(p) = p-1 $，所以
+$$ a^{\varphi(p)} = a^{p-1} \equiv 1 \pmod{p}$$。
+上面等式也称作\textbf{费马小定理}。
 
-北航的毕业设计论文要求使用Times New Roman和华文行楷这两种字体，在Linux系统上，这两种字
-是没有预装在系统里的，因此Linux用户需要手动安装字体才能正常使用本模板。本节将以Ubuntu系统
-为例演示字体的安装。
+\section{模反元素}
 
-首先需要获取字体文件，Windows系统默认包含了Times New Roman和华文行楷这两种字体，可以从
-\verb|C:\Windows\Fonts\|文件夹下将字体文件拷贝出来（显示为\verb|STXingkai|和
-\verb|Times New Roman|），当然，用户也可以从其他途径获取这两个字体文件。然后将字体文件
-拷贝到Ubuntu的\verb|/usr/share/fonts|目录下，为了方便管理，可以在这些外部字体放在一个新
-文件夹中：
-\begin{lstlisting}[
-    language={bash},
-    caption={拷贝字体文件},
-    label={copy-fonts},
-]
-sudo cp <your font files> /usr/share/fonts/msfonts/
-\end{lstlisting}
-然后将字体文件的权限设置为644：
-\begin{lstlisting}[
-    language={bash},
-    caption={设置字体文件权限},
-    label={set-fonts-permission},
-]
-sudo chmod 644 /usr/share/fonts/msfonts/*
-\end{lstlisting}
-接下来，进入到{\verb /usr/share/fonts/msfonts } 目录下，依次运行以下三个命令：
-\begin{lstlisting}[
-    language={bash},
-    caption={安装字体},
-    label={install-fonts},
-]
-sudo mkfontscale
-sudo mkfontdir
-sudo fc-cache -fv
-\end{lstlisting}
-当看到命令行输出
-\begin{lstlisting}[
-    language={bash},
-    caption={正常输出结果},
-    label={install-font-success},
-]
-fc-cache: succeeded
-\end{lstlisting}
-时，就完成了字体的安装。
-
-\section{关于编辑器}
-
-以上介绍了三款\LaTeX{}套装，涵盖了主流的三大平台，除了C\TeX{}自带了WinEdt，
-其余两款均需要自己选择编辑器，理论上任何文本编辑器都是可以使用的，
-如Windows上的 vscode，Linux/MacOS上的vim，emacs，
-一方面要考虑对\LaTeX{}的支持，一方面还是自己的熟悉程度。
-
-这里推荐一款大众化的编辑器\TeX{}maker，它是跨平台的，支持Windows、Linux和MacOS。
-
-\begin{description}
-    \item[官方网站]
-        \url{http://www.xm1math.net/texmaker/}
-    \item[下载地址]
-        \url{http://www.xm1math.net/texmaker/download.html}
-    \item[相关说明]
-    \begin{itemize}
-        \item 安装同一般软件的安装
-        \item 配置Xe\LaTeX{}的编译，选择菜单栏“选项”->“配置\TeX{}Maker”，
-        \item[] 在“\LaTeX{}”一栏填写
-            \texttt{xelatex -interaction=nonstopmode\%.tex}
-    \end{itemize}
-\end{description}
-
-\section{关于编译}
-
-\LaTeX{}的文件是通过编译生成的，对于本模板和毕业设计论文而言，
-需要经过代码\ref{code-compile}所示步骤（以sample-bachelor.tex为例）：
-\begin{lstlisting}[
-    language={bash},
-    caption={编译步骤},
-    label={code-compile},
-]
-xelatex sample-bachelor.tex
-bibtex  sample-bachelor.aux
-xelatex sample-bachelor.tex
-xelatex sample-bachelor.tex
-\end{lstlisting}
-当然，我们在模板里也提供了编译的执行脚本。
-
-\subsection{批处理 [ Windows only ]}
-
-进入cmd（Win+R，然后输入cmd），cd到BUAAthesis对应目录，
-如\verb|D:\BUAAthesis\|，然后运行\verb|msmake|即可。
-
-\subsection{Makefile [ Windows(cygwin) / Linux / MacOS ]}
-需要要你的命令行环境支持Make，cd到BUAAthesis相应目录，
-目前支持如代码\ref{code-make}所示的功能:
-\begin{lstlisting}[
-    language={bash},
-    caption={make 命令},
-    label={code-make},
-]
-make bachelor # 编译本科生的\LaTeX{}（文件默认项，亦可直接输入make）
-make master # 编译研究生的\LaTeX{}文件
-make kaitireport # 编译本科生/研究生的开题报告/文献综述的\LaTeX{}文件
-make clean # 删除编译过程中生成的文件（除了pdf）
-make depclean # 删除编译过程中生成的文件（包括pdf）
-\end{lstlisting}
+如果两个正整数 a 和 n 互质，那么一定可以找到一个正整数 b，使得 ab - 1 被 n 整除。
+$$ab \equiv 1 \pmod{n}$$
+这个时候，b 就叫做 a 的 模反元素。可以用欧拉定理来证明，模反元素一定存在。
+$$a^{\varphi(n)}= a\times a^{\varphi(n)-1} \equiv 1 \pmod{n}$$
+所以，$a^{\varphi(n)-1}$就是a的模反元素。

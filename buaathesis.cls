@@ -183,7 +183,7 @@ The LaTeX template for thesis of BUAA]
         \else
             \fancyhead[C]{
                 \includegraphics[width=37bp]{figure/buaamark.pdf}\hfill
-                \raisebox{2ex}{\heiti\zihao{4}\buaa@university 毕业设计(论文)}\hfill
+                \raisebox{2ex}{\heiti\zihao{4} 密码学课程论文}\hfill
                 \raisebox{2ex}{\songti\zihao{5}第\quad\thepage\quad 页}
             }
         \fi
@@ -668,7 +668,7 @@ The LaTeX template for thesis of BUAA]
                 \begin{center}
                     \includegraphics[width=360bp]{figure/buaaname.pdf}
                     \vskip 45bp
-                    \centerline{\zihao{-0}\heiti 毕业设计(论文)}
+                    \centerline{\zihao{-0}\heiti 密码学课程论文}
                     ~~\\
                     \vspace*{\stretch{4}}
                     \begin{minipage}[h]{.8\textwidth}
@@ -1241,9 +1241,9 @@ The LaTeX template for thesis of BUAA]
         \else
             \pagestyle{empty}
             \loadgeometry{bachelortaskgeometry}
-            \buaa@bachelor@assign     %本科生论文任务书
+            % \buaa@bachelor@assign     %本科生论文任务书
             \loadgeometry{bachelorgeometry}
-            \announce                 %本科生声明
+            % \announce                 %本科生声明
             \pagestyle{fancy}
             \frontmatter
         \fi
